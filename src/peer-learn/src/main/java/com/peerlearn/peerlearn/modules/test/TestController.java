@@ -1,6 +1,8 @@
 package com.peerlearn.peerlearn.modules.test;
 
+import com.peerlearn.peerlearn.modules.user.dtos.UserTokenPayloadDto;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @GetMapping
-    public String test(){
-        return "test route";
+    public String test(@RequestAttribute("token-payload") UserTokenPayloadDto payloadDto){
+        return "test route ,"+payloadDto;
     }
 
 }

@@ -32,7 +32,7 @@ public class UserService {
         Optional<User> found = userRepository.findUserByEmail(email);
         User user = found.orElseThrow(()-> new UserNotExistException("USer not found with these credentials "+email+" , "+pass));
         if(!passwordEncoder.matches(pass,user.getPassword())){
-            throw new UserPasswordNotMatchException("User Password doesn't matches "+pass);
+            throw new UserPasswordNotMatchException("User Password doesn't matches "+user.getPassword()+" , "+pass);
         }
         Algorithm algorithm = Algorithm.HMAC256("secret");
         Map<String, Long> payload = new HashMap<String, Long>();
