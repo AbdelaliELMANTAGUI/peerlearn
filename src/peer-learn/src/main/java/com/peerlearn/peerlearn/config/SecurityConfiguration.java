@@ -1,6 +1,7 @@
 package com.peerlearn.peerlearn.config;
 
-import com.peerlearn.peerlearn.security.filters.TokenAuthFilter;
+import com.peerlearn.peerlearn.security.filters.auth.TokenAuthFilter;
+import com.peerlearn.peerlearn.security.filters.group.IsGroupAdminFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +14,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 public class SecurityConfiguration {
 
     final TokenAuthFilter tokenAuthFilter;
+
     public SecurityConfiguration(TokenAuthFilter tokenAuthFilter) {
         this.tokenAuthFilter = tokenAuthFilter;
     }
@@ -21,7 +23,9 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .addFilterAt(tokenAuthFilter, BasicAuthenticationFilter.class);
+                //.addFilterAfter(isGroupAdminFilter,TokenAuthFilter.class)
         http.csrf().disable();
+        http.httpBasic().disable();
         return http.build();
     }
 

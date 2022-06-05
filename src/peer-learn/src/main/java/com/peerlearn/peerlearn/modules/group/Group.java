@@ -1,26 +1,26 @@
-package com.peerlearn.peerlearn.modules.user;
+package com.peerlearn.peerlearn.modules.group;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "groups")
+public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstname;
-    private String lastname;
-    @Column(unique = true,length = 255)
-    private String email;
-    private String password;
-    public User(Long id){
+    private String name;
+    private String description;
+
+    public Group(Long id) {
         this.id = id;
     }
 }

@@ -1,10 +1,11 @@
-package com.peerlearn.peerlearn.security.filters;
+package com.peerlearn.peerlearn.security.filters.auth;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.peerlearn.peerlearn.constants.RequestAttributes;
 import com.peerlearn.peerlearn.constants.Routes;
 import com.peerlearn.peerlearn.errors.exceptions.NotValidTokenException;
 import com.peerlearn.peerlearn.modules.user.dtos.UserTokenPayloadDto;
@@ -33,7 +34,8 @@ public class TokenAuthFilter extends OncePerRequestFilter {
         }
         DecodedJWT jwt = verifier.verify(bearer.split(" ")[1].trim());
         UserTokenPayloadDto payloadDto = new ObjectMapper().readValue(Base64.getDecoder().decode(jwt.getPayload()),UserTokenPayloadDto.class);
-        request.setAttribute("token-payload",payloadDto);
+        request.setAttribute(RequestAttributes.USER_DATA,payloadDto);
+        System.out.println("payloadDto : "+payloadDto);
         filterChain.doFilter(request,response);
     }
 

@@ -7,7 +7,6 @@ import com.peerlearn.peerlearn.errors.exceptions.UserPasswordNotMatchException;
 import com.peerlearn.peerlearn.modules.user.dtos.UserGetDto;
 import com.peerlearn.peerlearn.modules.user.dtos.UserSignupDto;
 import com.peerlearn.peerlearn.modules.user.dtos.UserTokenDto;
-import com.peerlearn.peerlearn.modules.user.dtos.UserTokenPayloadDto;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -44,9 +43,9 @@ public class UserService {
     }
 
     public UserGetDto signup(UserSignupDto userSignupDto){
-        User newUser = userMapper.userSignupDtoToUser(userSignupDto);
+        User newUser = userMapper.fromUserSignupDto(userSignupDto);
         System.out.println("newUSer "+newUser);
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        return userMapper.userToUserGetDto(userRepository.save(newUser));
+        return userMapper.toUserGetDto(userRepository.save(newUser));
     }
 }

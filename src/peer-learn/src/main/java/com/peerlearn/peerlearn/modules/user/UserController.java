@@ -5,7 +5,6 @@ import com.peerlearn.peerlearn.modules.user.dtos.UserGetDto;
 import com.peerlearn.peerlearn.modules.user.dtos.UserLoginDto;
 import com.peerlearn.peerlearn.modules.user.dtos.UserSignupDto;
 import com.peerlearn.peerlearn.modules.user.dtos.UserTokenDto;
-import com.peerlearn.peerlearn.response.auth.LoginSuccessResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,7 @@ import javax.validation.Valid;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     final UserService userService;
