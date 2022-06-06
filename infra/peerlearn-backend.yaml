@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: peerlearn-backend
+  labels:
+    app: peerlearn-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: peerlearn-backend
+  template:
+    metadata:
+      labels:
+        app: peerlearn-backend
+    spec:
+      containers:
+      - name: peerlearn-backend
+        image: # TODO change to docker file
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_URL
+          valueFrom:
+            configMapKeyRef:
+              name: peerlearn-configmap
+              key: database_url
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: peerlearn-secret
+              key: db-root-username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: peerlearn-secret
+              key: db-root-password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: peerlearn-backend-service
+spec:
+  selector:
+    app: peerlearn-backend
+  type: LoadBalancer  
+  ports:
+    - protocol: TCP
+      port: 8080 # internal service port
+      targetPort: 8080 # targeted port
+      nodePort: 30000 # external service port

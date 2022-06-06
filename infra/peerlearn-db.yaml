@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: peerlearn-db-deployment
+  labels:
+    app: peerlearn-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: peerlearn-db
+  template:
+    metadata:
+      labels:
+        app: peerlearn-db
+    spec:
+      containers:
+      - name: peerlearn-db
+        image: postgres
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: peerlearn-secret
+              key: db-root-username
+        - name: POSTGRES_PASSWORD
+          valueFrom: 
+            secretKeyRef:
+              name: peerlearn-secret
+              key: db-root-password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: peerlearn-db-service
+spec:
+  selector:
+    app: peerlearn-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
