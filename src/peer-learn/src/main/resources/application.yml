@@ -8,9 +8,9 @@ spring:
       ddl-auto: 'create'
       #defer-datasource-initialization: 'true'
   datasource:
-    url: 'jdbc:postgresql://localhost:5432/postgres'
-    username: 'postgres'
-    password: 'password'
+    url: ${DB_URL} # 'jdbc:postgresql://localhost:5432/postgres'
+    username: ${DB_USER} # 'postgres'
+    password: ${DB_PASSWORD} # 'password'
   sql:
     init:
      # continue-on-error: false
