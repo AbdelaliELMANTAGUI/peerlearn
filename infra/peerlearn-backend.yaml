@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: peerlearn-backend
-        image: # TODO change to docker file
+        image: ghcr.io/abdelalielmantagui/peerlearn:0.0.1
         ports:
         - containerPort: 8080
         env:
@@ -25,7 +25,7 @@ spec:
             configMapKeyRef:
               name: peerlearn-configmap
               key: database_url
-        - name: DB_USERNAME
+        - name: DB_USER
           valueFrom:
             secretKeyRef:
               name: peerlearn-secret

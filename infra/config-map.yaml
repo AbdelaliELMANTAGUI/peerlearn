@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: peerlearn-configmap
 data:
-  database_url: jdbc:postgresql://peerlearn-db-service/postgres
+  database_url: jdbc:postgresql://peerlearn-db-service:5432/peerlearn
